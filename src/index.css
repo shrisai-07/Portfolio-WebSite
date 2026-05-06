@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+/* =============================================
+   SPIDER-MAN 2099 × SPIDER-VERSE COMIC TOKENS
+   ============================================= */
+
+@theme {
+  --color-void: #0a0a0a;
+  --color-void-light: #111111;
+  --color-electric-blue: #1a8fe3;
+  --color-electric-blue-dim: rgba(26, 143, 227, 0.3);
+  --color-sharp-red: #e31a1a;
+  --color-cold-white: #f0f0f0;
+  --color-cold-muted: #8899aa;
+  --color-deep-purple: #7F77DD;
+  --color-electric-magenta: #D4537E;
+  --color-panel-border: #1a1a1a;
+
+  --font-bangers: "Bangers", cursive;
+  --font-mono: "Courier New", "Consolas", monospace;
+}
+
+/* =============================================
+   GLOBAL RESETS & BASE STYLES
+   ============================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-cold-white);
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-electric-blue);
+  color: var(--color-void);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-electric-blue-dim);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-electric-blue);
+}
+
+/* =============================================
+   HALFTONE DOT PATTERN (Ben-Day Dots)
+   ============================================= */
+
+.halftone-bg {
+  position: relative;
+}
+.halftone-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(26, 143, 227, 0.06) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.halftone-bg-dense::before {
+  background-image: radial-gradient(circle, rgba(26, 143, 227, 0.08) 1.2px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+
+/* =============================================
+   COMIC OUTLINE UTILITIES
+   ============================================= */
+
+.comic-outline {
+  -webkit-text-stroke: 2px var(--color-void);
+  paint-order: stroke fill;
+}
+
+.comic-outline-thin {
+  -webkit-text-stroke: 1px var(--color-void);
+  paint-order: stroke fill;
+}
+
+.comic-border {
+  border: 4px solid var(--color-void);
+  box-shadow: 
+    0 0 0 1px rgba(26, 143, 227, 0.2),
+    inset 0 0 0 1px rgba(26, 143, 227, 0.1);
+}
+
+.comic-border-thick {
+  border: 5px solid #000;
+  box-shadow: 
+    0 0 0 2px rgba(26, 143, 227, 0.15),
+    4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* =============================================
+   MISREGISTRATION OFFSET (CMYK Shift)
+   ============================================= */
+
+.misregister {
+  position: relative;
+}
+
+.misregister::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 1px;
+  left: -2px;
+  color: rgba(227, 26, 26, 0.15);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.misregister::after {
+  content: attr(data-text);
+  position: absolute;
+  top: -1px;
+  left: 2px;
+  color: rgba(26, 143, 227, 0.12);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* =============================================
+   GLITCH TRANSITION EFFECT
+   ============================================= */
+
+@keyframes glitchSlice {
+  0% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  10% { clip-path: inset(20% 0 60% 0); }
+  20% { clip-path: inset(80% 0 0% 0); }
+  30% { clip-path: inset(10% 0 70% 0); }
+  40% { clip-path: inset(50% 0 20% 0); }
+  50% { clip-path: inset(5% 0 85% 0); }
+  60% { clip-path: inset(70% 0 10% 0); }
+  70% { clip-path: inset(30% 0 50% 0); }
+  80% { clip-path: inset(90% 0 5% 0); }
+  90% { clip-path: inset(0% 0 95% 0); }
+  100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+
+.glitch-overlay {
+  animation: glitchSlice 400ms steps(2) forwards;
+}
+
+.glitch-red {
+  position: absolute;
+  inset: 0;
+  background: rgba(227, 26, 26, 0.15);
+  animation: glitchSlice 400ms steps(3) forwards;
+  transform: translateX(3px);
+  mix-blend-mode: screen;
+}
+
+.glitch-blue {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 143, 227, 0.15);
+  animation: glitchSlice 400ms steps(3) forwards;
+  transform: translateX(-3px);
+  mix-blend-mode: screen;
+}
+
+/* =============================================
+   BLINKING CURSOR
+   ============================================= */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* =============================================
+   LASER TRIPWIRE
+   ============================================= */
+
+.laser-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-electric-blue), transparent);
+  box-shadow: 0 0 8px var(--color-electric-blue), 0 0 20px rgba(26, 143, 227, 0.3);
+}
+
+/* =============================================
+   THREAT LEVEL PULSE
+   ============================================= */
+
+@keyframes threatPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(26, 143, 227, 0.4); }
+}
+
+.threat-pulse {
+  animation: threatPulse 3s ease-in-out infinite;
+}
+
+/* =============================================
+   HOLOGRAPHIC PANEL EFFECT
+   ============================================= */
+
+.holo-panel {
+  background: linear-gradient(135deg, rgba(26, 143, 227, 0.05) 0%, rgba(10, 10, 10, 0.95) 100%);
+  border: 1px solid rgba(26, 143, 227, 0.25);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.holo-panel:hover {
+  border-color: rgba(26, 143, 227, 0.5);
+  box-shadow: 0 0 20px rgba(26, 143, 227, 0.1), inset 0 0 20px rgba(26, 143, 227, 0.05);
+}
+
+/* =============================================
+   PANEL CRACK ON HOVER
+   ============================================= */
+
+.panel-crack {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-crack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%),
+    linear-gradient(-30deg, transparent 48%, rgba(255,255,255,0.04) 49%, rgba(255,255,255,0.04) 51%, transparent 52%),
+    linear-gradient(70deg, transparent 48%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 51%, transparent 52%);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.panel-crack:hover::after {
+  opacity: 1;
+}
+
+/* =============================================
+   TAG / BADGE STYLES
+   ============================================= */
+
+.skill-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(26, 143, 227, 0.4);
+  background: rgba(26, 143, 227, 0.06);
+  color: var(--color-electric-blue);
+  font-size: 0.8rem;
+  transition: all 200ms ease;
+}
+
+.skill-tag:hover {
+  border-color: var(--color-electric-blue);
+  box-shadow: 0 0 10px rgba(26, 143, 227, 0.3);
+  background: rgba(26, 143, 227, 0.12);
+}
+
+/* =============================================
+   SOUND EFFECT BURST STYLE
+   ============================================= */
+
+.sound-effect {
+  font-family: var(--font-bangers);
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  text-shadow: 
+    3px 3px 0 #000,
+    -1px -1px 0 rgba(26, 143, 227, 0.3);
+  letter-spacing: 2px;
+  user-select: none;
+  pointer-events: none;
+}
