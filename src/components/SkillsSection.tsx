@@ -29,7 +29,7 @@ export default function SkillsSection() {
           {SKILLS.map((category, catIndex) => (
             <motion.div
               key={category.title}
-              className="holo-panel p-5"
+              className="holo-panel p-8 min-h-[220px] flex flex-col justify-center"
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + catIndex * 0.12, duration: 0.5 }}
