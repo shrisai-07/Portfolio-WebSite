@@ -9,7 +9,7 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center halftone-bg overflow-hidden pt-20"
     >
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center lg:items-end gap-8">
         {/* Left Column */}
         <div className="w-full lg:w-[55%] relative" style={{ transform: 'translateX(50px)' }}>
           {/* Intentional Red Glitch Watermark (Restored) */}
@@ -57,13 +57,14 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column — 45% */}
-        <div className="w-full lg:w-[45%] flex flex-col items-end gap-12 mt-12 lg:mt-0">
-          <div className="w-full h-[40vh] lg:h-[60vh]">
-            <BoStaffLines />
-          </div>
-          
-          {/* Threat Level repositioned below BoStaffLines */}
-          <div className="pr-10 lg:pr-20">
+        <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-end mt-12 lg:mt-0 lg:pr-10">
+          <div className="flex flex-col items-center gap-32">
+            {/* Collider Portal */}
+            <div className="w-[168px] h-[168px] md:w-[192px] md:h-[192px]">
+              <BoStaffLines />
+            </div>
+            
+            {/* Threat Level */}
             <ThreatLevelWidget />
           </div>
         </div>
