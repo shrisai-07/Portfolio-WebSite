@@ -22,7 +22,7 @@ export default function DossierBlock() {
       <div className="flex items-center gap-6 mb-12 border-b-2 border-[rgba(227,26,26,0.4)] pb-6">
         <div className="w-3 h-10 bg-[#e31a1a] shadow-[0_0_15px_#e31a1a]" />
         <h3 className="font-[Bangers] text-2xl md:text-4xl text-[#f0f0f0] tracking-[0.2em] uppercase">
-          SPIDER-SOCIETY ID CARD
+          IDENTITY CARD
         </h3>
       </div>
 
