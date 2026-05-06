@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import DossierBlock from './DossierBlock';
-import ThreatLevelWidget from './ThreatLevelWidget';
 import BoStaffLines from './BoStaffLines';
+import ThreatLevelWidget from './ThreatLevelWidget';
 
 export default function HeroSection() {
   return (
@@ -9,20 +9,26 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center halftone-bg overflow-hidden pt-20"
     >
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center gap-8">
-        {/* Left Column — 60% */}
-        <div className="w-full lg:w-[60%]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-8">
+        {/* Left Column */}
+        <div className="w-full lg:w-[55%] relative" style={{ transform: 'translateX(50px)' }}>
+          {/* Intentional Red Glitch Watermark (Restored) */}
+          <div 
+            className="absolute top-[1px] left-[4px] font-[Bangers] text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[rgba(227,26,26,0.15)] whitespace-nowrap pointer-events-none -z-10"
+          >
+            SHRISAI KOLKONDI
+          </div>
+
           {/* Name */}
           <motion.h1
-            className="font-[Bangers] text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[#1a8fe3] comic-outline tracking-wide misregister"
-            data-text="SHRISAI KOLKONDI"
+            className="font-[Bangers] text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[#1a8fe3] comic-outline tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            SHRISAI
+            <div className="misregister inline-block" data-text="SHRISAI">SHRISAI</div>
             <br />
-            KOLKONDI
+            <div className="misregister inline-block" data-text="KOLKONDI">KOLKONDI</div>
           </motion.h1>
 
           {/* Subtitle */}
@@ -48,14 +54,18 @@ export default function HeroSection() {
 
           {/* Dossier */}
           <DossierBlock />
-
-          {/* Threat Level */}
-          <ThreatLevelWidget />
         </div>
 
-        {/* Right Column — 40% */}
-        <div className="w-full lg:w-[40%] h-[50vh] lg:h-[70vh]">
-          <BoStaffLines />
+        {/* Right Column — 45% */}
+        <div className="w-full lg:w-[45%] flex flex-col items-end gap-12 mt-12 lg:mt-0">
+          <div className="w-full h-[40vh] lg:h-[60vh]">
+            <BoStaffLines />
+          </div>
+          
+          {/* Threat Level repositioned below BoStaffLines */}
+          <div className="pr-10 lg:pr-20">
+            <ThreatLevelWidget />
+          </div>
         </div>
       </div>
 
