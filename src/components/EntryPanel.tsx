@@ -166,7 +166,6 @@ export default function EntryPanel({ onComplete }: EntryPanelProps) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.15 }}
                 >
-                  {/* Main vertical crack */}
                   <motion.line
                     x1="200" y1="0" x2="200" y2="280"
                     stroke="#e31a1a" strokeWidth="2.5" opacity="0.9"
@@ -174,18 +173,15 @@ export default function EntryPanel({ onComplete }: EntryPanelProps) {
                     animate={{ pathLength: 1 }}
                     transition={{ duration: 0.3 }}
                   />
-                  {/* Branching cracks */}
                   <line x1="200" y1="60" x2="170" y2="30" stroke="#ff4444" strokeWidth="1" opacity="0.6" />
                   <line x1="200" y1="100" x2="235" y2="70" stroke="#ff4444" strokeWidth="1" opacity="0.5" />
                   <line x1="200" y1="160" x2="165" y2="180" stroke="#ff4444" strokeWidth="1.2" opacity="0.6" />
                   <line x1="200" y1="200" x2="240" y2="220" stroke="#ff4444" strokeWidth="1" opacity="0.5" />
                   <line x1="200" y1="240" x2="175" y2="260" stroke="#ff4444" strokeWidth="1" opacity="0.6" />
-                  {/* Red glow along center */}
                   <line x1="200" y1="0" x2="200" y2="280" stroke="#e31a1a" strokeWidth="8" opacity="0.15" />
                 </motion.svg>
               )}
 
-              {/* Click hint */}
               {phase === 'idle' && (
                 <motion.div
                   className="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-xs font-mono text-[#8899aa]"
@@ -202,7 +198,6 @@ export default function EntryPanel({ onComplete }: EntryPanelProps) {
           {/* ---- Tearing apart: 2 halves ---- */}
           {phase === 'tearing' && (
             <>
-              {/* Left half */}
               <motion.div
                 className="absolute comic-border-thick overflow-hidden"
                 style={{
@@ -216,8 +211,6 @@ export default function EntryPanel({ onComplete }: EntryPanelProps) {
               >
                 <Cityscape />
               </motion.div>
-
-              {/* Right half */}
               <motion.div
                 className="absolute comic-border-thick overflow-hidden"
                 style={{
