@@ -716,7 +716,7 @@ function BootSequence({ onComplete }: { onComplete: () => void }) {
 // ─── Hidden Konami Terminal ───────────────────────────────────────────────────
 function HiddenTerminal() {
   const [active, setActive] = useState(false);
-  const [keys, setKeys] = useState('');
+  const [, setKeys] = useState('');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -780,7 +780,7 @@ export default function BentoPage() {
   const fadeIn = (delay = 0) => ({
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.45, delay, ease: [0.23, 1, 0.32, 1] },
+    transition: { duration: 0.45, delay, ease: "easeOut" as const },
   });
 
   if (!booted) {
