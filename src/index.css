@@ -462,3 +462,72 @@ body::after {
 .custom-scroll { overflow-y: auto; }
 .custom-scroll::-webkit-scrollbar { width: 3px; }
 .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius:2px; }
+
+/* =============================================
+   RESPONSIVE DESIGN (MOBILE OPTIMIZATION)
+   ============================================= */
+.bento-row {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 14px;
+  grid-template-columns: 1fr; /* Default to single column for mobile */
+}
+
+.bento-row-last {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .bento-row-1 { grid-template-columns: 1fr 1.2fr; }
+  .bento-row-2 { grid-template-columns: 1.2fr 1fr; }
+  .bento-row-3 { grid-template-columns: 1.2fr 1fr; }
+  .bento-row-4 { grid-template-columns: 1.2fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  /* Status Bar horizontal scroll */
+  .status-bar {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 2px;
+  }
+  .status-bar::-webkit-scrollbar {
+    height: 0px; /* Hide scrollbar for status bar */
+    display: none;
+  }
+  
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Adjust padding for bento grid container on mobile */
+  .bento-container-padding {
+    padding: 20px 10px !important;
+  }
+
+  /* Make typography slightly smaller on mobile to fit nicely */
+  .glitch { font-size: 22px !important; }
+  
+  /* Feature project card adjustments */
+  .card-purple .icon-block {
+    width: 60px !important;
+    height: 80px !important;
+    font-size: 28px !important;
+  }
+
+  /* Force smaller padding on mobile for cards to save space */
+  .card {
+    padding: 20px !important;
+  }
+  .flip-front, .flip-back {
+    padding: 20px !important;
+  }
+  
+  .boot-sequence {
+    padding: 20px !important;
+  }
+  
+  .hidden-terminal {
+    padding: 20px !important;
+  }
+}

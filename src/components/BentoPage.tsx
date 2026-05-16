@@ -238,7 +238,7 @@ function FeaturedProjectCard() {
     >
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
         {/* Icon block */}
-        <div style={{
+        <div className="icon-block" style={{
           width: 100, height: 130, borderRadius: 12, flexShrink: 0,
           background: 'var(--icon-bg-1)',
           border: '1px solid rgba(176,110,243,0.2)',
@@ -706,7 +706,7 @@ function BootSequence({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   return (
-    <div style={{ position: 'fixed', inset: 0, background: '#030304', color: 'var(--cyan)', fontFamily: 'var(--mono)', fontSize: 15, padding: 40, zIndex: 99999, display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div className="boot-sequence" style={{ position: 'fixed', inset: 0, background: '#030304', color: 'var(--cyan)', fontFamily: 'var(--mono)', fontSize: 15, padding: 40, zIndex: 99999, display: 'flex', flexDirection: 'column', gap: 8 }}>
       {lines.map((line, i) => <div key={i}>{line}</div>)}
       <motion.div animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 0.8 }} style={{ width: 10, height: 18, background: 'var(--cyan)', marginTop: 4 }} />
     </div>
@@ -741,6 +741,7 @@ function HiddenTerminal() {
           animate={{ y: 0 }}
           exit={{ y: '-100%' }}
           transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+          className="hidden-terminal"
           style={{ position: 'fixed', inset: 0, background: 'rgba(6,6,8,0.98)', backdropFilter: 'blur(10px)', zIndex: 99999, padding: '40px 60px', color: 'var(--cyan)', fontFamily: 'var(--mono)', overflowY: 'auto' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--cyan)', paddingBottom: 10, marginBottom: 20 }}>
@@ -814,28 +815,28 @@ export default function BentoPage() {
       </div>
 
       {/* ── Bento Grid ── */}
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 20px' }}>
+      <div className="bento-container-padding" style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 20px' }}>
 
         {/* ROW 1: Profile (left ~45%) + About Me (right ~55%) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 14, marginBottom: 14 }}>
+        <div className="bento-row bento-row-1">
           <motion.div {...fadeIn(0.1)}><TiltWrapper><ProfileCard /></TiltWrapper></motion.div>
           <motion.div {...fadeIn(0.2)}><TiltWrapper><AboutCard /></TiltWrapper></motion.div>
         </div>
 
         {/* ROW 2: Featured Project (left ~55%) + Other Projects (right ~45%) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 14, marginBottom: 14 }}>
+        <div className="bento-row bento-row-2">
           <motion.div {...fadeIn(0.3)}><TiltWrapper><FeaturedProjectCard /></TiltWrapper></motion.div>
           <motion.div {...fadeIn(0.4)}><TiltWrapper><OtherProjectsCard /></TiltWrapper></motion.div>
         </div>
 
         {/* ROW 3: Skills (left ~55%) + Connect (right ~45%) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 14, marginBottom: 14 }}>
+        <div className="bento-row bento-row-3">
           <motion.div {...fadeIn(0.5)}><TiltWrapper><SkillsCard /></TiltWrapper></motion.div>
           <motion.div {...fadeIn(0.6)}><TiltWrapper><ConnectCard /></TiltWrapper></motion.div>
         </div>
 
         {/* ROW 4: Certs (left ~55%) + Contact form (right ~45%) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 14 }}>
+        <div className="bento-row bento-row-4 bento-row-last">
           <motion.div {...fadeIn(0.7)}><TiltWrapper><CertsCard /></TiltWrapper></motion.div>
           <motion.div {...fadeIn(0.8)}><TiltWrapper><ContactCard /></TiltWrapper></motion.div>
         </div>
@@ -849,8 +850,8 @@ export default function BentoPage() {
         </div>
         <span className="sb-sep">│</span>
         <div className="sb-item cyan-item">🛡️ CYBERSECURITY</div>
-        <span className="sb-sep">│</span>
-        <div className="sb-item" style={{ color: 'var(--amber)' }}>VIT BHOPAL · B.TECH CSE</div>
+        <span className="sb-sep hide-on-mobile">│</span>
+        <div className="sb-item hide-on-mobile" style={{ color: 'var(--amber)' }}>VIT BHOPAL · B.TECH CSE</div>
         <div className="sb-right sb-item">
           <span style={{ color: 'var(--cyan)' }}>↗</span>
           <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer"
