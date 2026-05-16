@@ -1,25 +1,48 @@
+import { motion } from 'framer-motion';
 import { useScrollSection } from '../hooks/useScrollSection';
 import ProjectPanel from './ProjectPanel';
 import { PROJECTS } from '../utils/constants';
 
 export default function ProjectsSection() {
-  const [ref, isVisible] = useScrollSection(0.15);
+  const [ref, isVisible] = useScrollSection(0.1);
 
   return (
-    <section ref={ref as React.RefObject<HTMLDivElement>} className="relative py-32 px-6 md:px-10 max-w-7xl mx-auto">
-      {/* Section header */}
-      <h2
-        className="font-[Bangers] text-4xl md:text-5xl text-[#1a8fe3] comic-outline tracking-wider mb-16 misregister"
-        data-text="PROJECTS"
-        style={{ WebkitTextStroke: '1.5px #000' }}
+    <section
+      id="projects"
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{ padding: '80px 24px', maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        style={{ marginBottom: 40 }}
       >
-        PROJECTS
-      </h2>
+        <div className="section-label" style={{ marginBottom: 8 }}>02 — Projects</div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <h2 className="section-title">
+            Things I've<br /><span style={{ color: 'var(--blue)' }}>built & broken.</span>
+          </h2>
+          <p style={{ fontSize: 14, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            Flip cards to read more →
+          </p>
+        </div>
+      </motion.div>
 
-      {/* Comic page spread */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* Projects grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: 16,
+      }}>
         {PROJECTS.map((project, i) => (
-          <ProjectPanel key={project.title} project={project} index={i} isVisible={isVisible} />
+          <ProjectPanel
+            key={project.title}
+            project={project}
+            index={i}
+            isVisible={isVisible}
+          />
         ))}
       </div>
     </section>

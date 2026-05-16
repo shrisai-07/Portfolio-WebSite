@@ -1,98 +1,130 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollSection } from '../hooks/useScrollSection';
-import SoundEffect from './SoundEffect';
 import { SKILLS } from '../utils/constants';
 
+const CATEGORY_COLORS: Record<string, { color: string; icon: string }> = {
+  'LANGUAGES': { color: 'var(--blue)', icon: '⌨️' },
+  'CYBERSECURITY TOOLS & DOMAINS': { color: 'var(--red)', icon: '🛡️' },
+  'CERTIFICATIONS': { color: 'var(--green)', icon: '🏅' },
+  'PRACTICE': { color: 'var(--amber)', icon: '🔬' },
+};
+
 export default function SkillsSection() {
-  const [ref, isVisible] = useScrollSection(0.2);
+  const [ref, isVisible] = useScrollSection(0.1);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <section ref={ref as React.RefObject<HTMLDivElement>} className="relative py-32 px-6 md:px-10 max-w-7xl mx-auto overflow-hidden">
-      {/* Background Decorative Hex Grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0">
-        <svg width="100%" height="100%">
-          <pattern id="hex-grid" width="50" height="43.3" patternUnits="userSpaceOnUse">
-            <path d="M25 0L50 14.4V43.3L25 57.7L0 43.3V14.4L25 0Z" fill="none" stroke="#1a8fe3" strokeWidth="1" />
-          </pattern>
-          <rect width="100%" height="100%" fill="url(#hex-grid)" />
-        </svg>
-      </div>
+    <section
+      id="skills"
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{ padding: '80px 24px', maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        style={{ marginBottom: 40 }}
+      >
+        <div className="section-label" style={{ marginBottom: 8 }}>03 — Skills</div>
+        <h2 className="section-title">
+          My toolkit<br /><span style={{ color: 'var(--blue)' }}>& expertise.</span>
+        </h2>
+      </motion.div>
 
-      {/* Sound effect */}
-      <div className="absolute top-8 right-8 z-20">
-        <SoundEffect text="ACCESS GRANTED." color="#e31a1a" rotation={-8} visible={isVisible} size="md" />
-      </div>
+      {/* Bento grid of skill categories */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 32 }}>
+        {SKILLS.map((cat, catIdx) => {
+          const meta = CATEGORY_COLORS[cat.title] ?? { color: 'var(--blue)', icon: '⚙️' };
+          const isActive = activeCategory === cat.title;
 
-      {/* Large comic panel frame */}
-      <div className="comic-border-thick bg-[#0a0a0a] p-10 md:p-16 halftone-bg relative overflow-hidden group">
-        {/* Glowing Corner Accents */}
-        <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[#e31a1a] opacity-40 group-hover:opacity-100 transition-opacity duration-700" />
-        <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-[#1a8fe3] opacity-40 group-hover:opacity-100 transition-opacity duration-700" />
-
-        {/* Section header */}
-        <div className="relative mb-16 inline-block">
-          <h2
-            className="font-[Bangers] text-5xl md:text-7xl text-[#1a8fe3] comic-outline tracking-[0.1em] misregister"
-            data-text="SKILLS"
-            style={{ WebkitTextStroke: '2px #000' }}
-          >
-            SKILLS
-          </h2>
-          <motion.div 
-            className="h-1 bg-gradient-to-r from-[#e31a1a] via-[#D4537E] to-transparent mt-2"
-            initial={{ scaleX: 0 }}
-            animate={isVisible ? { scaleX: 1 } : {}}
-            transition={{ duration: 1, delay: 0.5 }}
-            style={{ transformOrigin: 'left' }}
-          />
-        </div>
-
-        {/* Holographic sub-panels — 2x2 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
-          {SKILLS.map((category, catIndex) => (
+          return (
             <motion.div
-              key={category.title}
-              className="holo-panel p-10 min-h-[280px] flex flex-col relative group/panel"
-              initial={{ opacity: 0, x: catIndex % 2 === 0 ? -40 : 40 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.2 + catIndex * 0.12, duration: 0.6, ease: "easeOut" }}
+              key={cat.title}
+              className="bento-card"
+              style={{
+                padding: 24,
+                cursor: 'default',
+                border: isActive ? `1px solid ${meta.color}40` : '1px solid var(--border)',
+                boxShadow: isActive ? `0 8px 40px ${meta.color}20` : undefined,
+                transition: 'all 0.3s ease',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + catIdx * 0.1 }}
+              onMouseEnter={() => setActiveCategory(cat.title)}
+              onMouseLeave={() => setActiveCategory(null)}
             >
-              {/* Category Header - Flex Item 1 */}
-              <div className="border-b-4 border-[#e31a1a] pb-4 mb-8 pl-12 pr-6 pt-6">
-                <div className="font-[Bangers] text-3xl text-[#f0f0f0] tracking-[0.3em] uppercase">
-                  {category.title}
+              {/* Category header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                <span style={{ fontSize: 20 }}>{meta.icon}</span>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    Category
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: meta.color }}>
+                    {cat.title}
+                  </div>
                 </div>
               </div>
 
-              {/* Skill Tags Container - Flex Item 2 */}
-              <div className="flex flex-wrap gap-4 pl-12 pr-6 pb-6">
-                {category.skills.map((skill, skillIndex) => (
+              {/* Skill pills */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {cat.skills.map((skill, si) => (
                   <motion.span
                     key={skill}
-                    className="skill-tag"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.5 + catIndex * 0.1 + skillIndex * 0.05 }}
-                    whileHover={{ scale: 1.1, rotate: 1 }}
+                    className="skill-pill"
+                    initial={{ opacity: 0 }}
+                    animate={isVisible ? { opacity: 1 } : {}}
+                    transition={{ delay: 0.3 + catIdx * 0.1 + si * 0.04 }}
                   >
                     {skill}
                   </motion.span>
                 ))}
               </div>
-              
-              {/* UI Decorative Marker */}
-              <div className="absolute top-4 right-6 font-mono text-[10px] text-[#e31a1a] opacity-40 group-hover/panel:opacity-100 transition-opacity">
-                ID_CORE_{catIndex}
-              </div>
             </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Proficiency bars */}
+      <motion.div
+        className="bento-card"
+        style={{ padding: 28 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.5 }}
+      >
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 20 }}>
+          Proficiency Overview
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
+          {[
+            { label: 'Java', pct: 82, color: 'var(--blue)' },
+            { label: 'Network Security', pct: 75, color: 'var(--red)' },
+            { label: 'Digital Forensics', pct: 70, color: 'var(--purple)' },
+            { label: 'Cryptography', pct: 68, color: 'var(--cyan)' },
+            { label: 'C++', pct: 60, color: 'var(--green)' },
+            { label: 'CTF / Lab Envs', pct: 78, color: 'var(--amber)' },
+          ].map((item, i) => (
+            <div key={item.label}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{item.label}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: item.color }}>{item.pct}%</span>
+              </div>
+              <div className="progress-track">
+                <motion.div
+                  className="progress-fill"
+                  style={{ background: item.color, boxShadow: `0 0 8px ${item.color}60`, width: 0 }}
+                  animate={isVisible ? { width: `${item.pct}%` } : {}}
+                  transition={{ duration: 1.2, delay: 0.6 + i * 0.1, ease: [0.4, 0, 0.2, 1] }}
+                />
+              </div>
+            </div>
           ))}
         </div>
-
-        {/* Floating Background Text / Watermark */}
-        <div className="absolute -bottom-10 -left-10 font-[Bangers] text-[10rem] text-[#e31a1a] opacity-[0.03] select-none pointer-events-none rotate-12">
-          MIGUEL O'HARA
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
